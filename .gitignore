@@ -1,0 +1,116 @@
+# ====================
+# Python / Backend
+# ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.pyo
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+*.log
+*.pot
+celerybeat-schedule
+celerybeat.pid
+instance/
+.webassets-cache
+.scrapy
+docs/_build/
+.pybuilder/
+target/
+profile_default/
+ipython_config.py
+*.ipynb_checkpoints/
+
+# ====================
+# Environment / Secrets
+# ====================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.json
+config.local.*
+
+# ====================
+# Node / Frontend
+# ====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm/
+.yarn/
+.pnp.*
+
+# Build outputs
+frontend/dist/
+frontend/build/
+frontend/.vite/
+
+# ====================
+# Datasets
+# ====================
+datasets/
+datasets/*.csv
+datasets/*.json
+datasets/*.parquet
+datasets/*.tsv
+datasets/*.zip
+datasets/*.tar.gz
+datasets/*.gz
+datasets/raw/
+datasets/processed/
+
+# ====================
+# Browser Extension
+# ====================
+extension/dist/
+extension/build/
+extension/*.crx
+extension/*.pem
+
+# ====================
+# OS / Editor
+# ====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ====================
+# Misc
+# ====================
+*.bak
+*.tmp
+*.orig
+fix_layouts.py

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ShieldAI — Threat Blocked</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* ── CARD ───────────────────────────────────────── */
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    /* ── HEADER BAND ─────────────────────────────────── */
+    .card-header {
+      background: linear-gradient(135deg, #1a0a0a, #2a0f0f);
+      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .shield-wrap {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+    }
+
+    .card-header-text {}
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ef4444;
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 3px;
+    }
+
+    /* ── BODY ────────────────────────────────────────── */
+    .card-body { padding: 16px 24px; }
+
+    /* ── URL ROW ─────────────────────────────────────── */
+    .url-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
+      padding: 9px 12px;
+      margin-bottom: 14px;
+    }
+
+    .url-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ef4444;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      flex-shrink: 0;
+    }
+
+    .url-text {
+      font-size: 12px;
+      color: #f87171;
+      font-family: 'Courier New', monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── DETAIL GRID ─────────────────────────────────── */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .detail-cell {
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .detail-cell-label {
+      font-size: 10px;
+      color: #8b949e;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .detail-cell-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+
+    .value-phishing { color: #ef4444; }
+    .value-safe { color: #10b981; }
+
+    /* ── RISK BADGE ──────────────────────────────────── */
+    .risk-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .risk-critical { background: rgba(220,38,38,0.2); color: #ef4444; border: 1px solid rgba(220,38,38,0.4); }
+    .risk-high     { background: rgba(249,115,22,0.2); color: #f97316; border: 1px solid rgba(249,115,22,0.4); }
+    .risk-medium   { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); }
+    .risk-low      { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid rgba(16,185,129,0.4); }
+
+    /* ── WHY SECTION ─────────────────────────────────── */
+    .why-section {
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+
+    .why-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: #c9d1d9;
+      padding: 3px 0;
+      line-height: 1.4;
+    }
+
+    .why-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .threat-desc {
+      font-size: 12px;
+      color: #8b949e;
+      line-height: 1.5;
+    }
+
+    /* ── SHAP ────────────────────────────────────────── */
+    .shap-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #c9d1d9;
+      padding: 3px 0;
+    }
+
+    /* ── ACTIONS ─────────────────────────────────────── */
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding: 14px 24px 16px;
+      border-top: 1px solid #21262d;
+    }
+
+    .btn-back {
+      flex: 1;
+      padding: 10px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-back:hover { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
+
+    .btn-proceed {
+      padding: 10px 16px;
+      background: transparent;
+      color: #6e7681;
+      border: 1px solid #30363d;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-proceed:hover { color: #c9d1d9; border-color: #8b949e; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .card-footer {
+      padding: 8px 24px;
+      background: #0d1117;
+      border-top: 1px solid #21262d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-brand {
+      font-size: 11px;
+      color: #6e7681;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="shield-wrap">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L4 6v5c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V6l-8-4z"/>
+          <path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="card-header-text">
+        <div class="card-title">⚠️ Dangerous Site Blocked</div>
+        <div class="card-subtitle">ShieldAI detected this site may be trying to steal your information</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+
+      <!-- Blocked URL -->
+      <div class="url-row">
+        <span class="url-label">URL</span>
+        <span class="url-text" id="blocked-url">Loading...</span>
+      </div>
+
+      <!-- Details Grid -->
+      <div class="detail-grid">
+        <div class="detail-cell">
+          <div class="detail-cell-label">How sure are we?</div>
+          <div class="detail-cell-value value-phishing" id="confidence">—%</div>
+        </div>
+        <div class="detail-cell">
+          <div class="detail-cell-label">Danger Level</div>
+          <div class="detail-cell-value">
+            <span class="risk-badge" id="risk-badge">CRITICAL</span>
+          </div>
+        </div>
+        <div class="detail-cell">
+          <div class="detail-cell-label">What we detected</div>
+          <div class="detail-cell-value value-phishing" id="prediction">Phishing</div>
+        </div>
+        <div class="detail-cell">
+          <div class="detail-cell-label">Our action</div>
+          <div class="detail-cell-value" id="aatr-action">BLOCKED</div>
+        </div>
+      </div>
+
+      <!-- Why it was blocked -->
+      <div class="why-section">
+        <div class="why-title">Why was this blocked?</div>
+        <div id="shap-section">
+          <!-- Populated dynamically or fallback below -->
+          <div class="threat-desc" id="threat-report">Analysing...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Action buttons -->
+    <div class="actions">
+      <button id="go-back" class="btn-back">🔙 Take me back to safety</button>
+      <button id="proceed-anyway" class="btn-proceed">Proceed anyway</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#6e7681">
+        <path d="M12 2L4 6v5c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V6l-8-4z"/>
+      </svg>
+      <span class="footer-brand">Protected by ShieldAI v2</span>
+    </div>
+  </div>
+
+  <script src="warning.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+aiosqlite
+xgboost
+shap
+numpy
+scikit-learn
+joblib
+aiohttp
+python-multipart
+pydantic-settings
+slowapi
+dnspython
+tldextract
+whodap
+python-levenshtein

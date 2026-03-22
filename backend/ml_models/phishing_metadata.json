@@ -1,0 +1,173 @@
+{
+  "model_name": "ShieldAI_Phishing_v2",
+  "model_type": "XGBClassifier",
+  "version": "2.0",
+  "trained_at": "2026-03-22T04:31:00.474534+00:00",
+  "datasets": [
+    "StealthPhisher_2025 (336,749 rows)",
+    "LegitPhish_2025 (101,219 rows)"
+  ],
+  "total_training_rows": 437968,
+  "n_features": 20,
+  "feature_names": [
+    "url_length",
+    "domain_length",
+    "tld_length",
+    "path_length",
+    "query_param_count",
+    "digit_count",
+    "digit_ratio",
+    "letter_count",
+    "letter_ratio",
+    "special_char_count",
+    "special_char_ratio",
+    "has_ip_address",
+    "has_at_symbol",
+    "has_hyphen_in_domain",
+    "has_double_slash",
+    "has_hex_encoding",
+    "has_ssl",
+    "shannon_entropy",
+    "brand_spoofing",
+    "suspicious_tld"
+  ],
+  "training_config": {
+    "best_iteration": 280,
+    "max_depth": 6,
+    "min_child_weight": 10,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "gamma": 1.0,
+    "reg_alpha": 0.1,
+    "reg_lambda": 2.0,
+    "learning_rate": 0.05,
+    "device": "cuda"
+  },
+  "performance": {
+    "accuracy": 0.9975188748173405,
+    "precision": 0.9980223942955824,
+    "recall": 0.9974389666787296,
+    "f1_score": 0.9977305951966585,
+    "roc_auc": 0.9994199033017773,
+    "true_negatives": 29702,
+    "false_positives": 71,
+    "false_negatives": 92,
+    "true_positives": 35831,
+    "false_positive_rate": 0.0023847109797467503,
+    "false_negative_rate": 0.0025610333212704953
+  },
+  "shap": {
+    "base_value": 0.03853283077478409,
+    "top_features": [
+      {
+        "rank": 1,
+        "feature": "path_length",
+        "mean_shap": 3.4146084785461426
+      },
+      {
+        "rank": 2,
+        "feature": "has_ssl",
+        "mean_shap": 1.8497955799102783
+      },
+      {
+        "rank": 3,
+        "feature": "domain_length",
+        "mean_shap": 1.8487919569015503
+      },
+      {
+        "rank": 4,
+        "feature": "url_length",
+        "mean_shap": 0.9438762664794922
+      },
+      {
+        "rank": 5,
+        "feature": "digit_count",
+        "mean_shap": 0.7129911780357361
+      },
+      {
+        "rank": 6,
+        "feature": "letter_count",
+        "mean_shap": 0.500484049320221
+      },
+      {
+        "rank": 7,
+        "feature": "tld_length",
+        "mean_shap": 0.23617681860923767
+      },
+      {
+        "rank": 8,
+        "feature": "shannon_entropy",
+        "mean_shap": 0.22755414247512817
+      },
+      {
+        "rank": 9,
+        "feature": "letter_ratio",
+        "mean_shap": 0.22178052365779877
+      },
+      {
+        "rank": 10,
+        "feature": "digit_ratio",
+        "mean_shap": 0.20334869623184204
+      },
+      {
+        "rank": 11,
+        "feature": "has_hyphen_in_domain",
+        "mean_shap": 0.14478957653045654
+      },
+      {
+        "rank": 12,
+        "feature": "suspicious_tld",
+        "mean_shap": 0.12747526168823242
+      },
+      {
+        "rank": 13,
+        "feature": "query_param_count",
+        "mean_shap": 0.02989884652197361
+      },
+      {
+        "rank": 14,
+        "feature": "special_char_count",
+        "mean_shap": 0.020695533603429794
+      },
+      {
+        "rank": 15,
+        "feature": "brand_spoofing",
+        "mean_shap": 0.019862711429595947
+      },
+      {
+        "rank": 16,
+        "feature": "special_char_ratio",
+        "mean_shap": 0.00853282306343317
+      },
+      {
+        "rank": 17,
+        "feature": "has_ip_address",
+        "mean_shap": 0.0018771974137052894
+      },
+      {
+        "rank": 18,
+        "feature": "has_at_symbol",
+        "mean_shap": 0.0
+      },
+      {
+        "rank": 19,
+        "feature": "has_double_slash",
+        "mean_shap": 0.0
+      },
+      {
+        "rank": 20,
+        "feature": "has_hex_encoding",
+        "mean_shap": 0.0
+      }
+    ]
+  },
+  "production": {
+    "threshold": 0.5,
+    "aatr_block_threshold": 0.9,
+    "aatr_quarantine_threshold": 0.7,
+    "aatr_warn_threshold": 0.5,
+    "macl_ready": true,
+    "feature_extraction": "url_only",
+    "requires_page_load": false
+  }
+}

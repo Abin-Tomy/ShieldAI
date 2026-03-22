@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 350px;
+      /* Dark space background with subtle gradient */
+      background: linear-gradient(145deg, #020617 0%, #0f172a 100%);
+      color: #e2e8f0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 13px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(37,99,235,0.1) 100%);
+      border: 1px solid rgba(59,130,246,0.5);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .logo svg { filter: drop-shadow(0 0 4px rgba(59,130,246,0.8)); }
+
+    .header-text { flex: 1; }
+
+    .header-title {
+      font-weight: 800;
+      font-size: 16px;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+    
+    .header-title span { color: #3b82f6; }
+
+    .header-subtitle {
+      font-size: 9px;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(5px);
+    }
+
+    .status-pill-online {
+      background: rgba(16, 185, 129, 0.1);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .status-pill-offline {
+      background: rgba(239, 68, 68, 0.1);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .status-pill-online .status-dot { animation: pulse-green 2s infinite; }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* ── STATS ───────────────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.05); /* Divider color */
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat-cell {
+      background: rgba(15, 23, 42, 0.9);
+      padding: 12px 8px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    
+    .stat-cell:hover { background: rgba(30, 41, 59, 0.9); }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: #94a3b8;
+      margin-top: 4px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── LAST SCAN ───────────────────────────────────────── */
+    .last-scan {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.01);
+    }
+
+    .section-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scan-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 10px 12px;
+      backdrop-filter: blur(5px);
+    }
+
+    .scan-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .badge-safe { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: inset 0 0 10px rgba(16,185,129,0.1); }
+    .badge-phishing { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); box-shadow: inset 0 0 10px rgba(239,68,68,0.1); }
+    .badge-empty { background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.2); filter: grayscale(1); }
+
+    .scan-info { flex: 1; min-width: 0; }
+
+    .scan-url {
+      font-size: 11px;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .scan-meta {
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .scan-confidence {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .conf-safe { color: #34d399; }
+    .conf-phishing { color: #f87171; }
+
+    .empty-text {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* ── MANUAL SCAN ─────────────────────────────────────── */
+    .scan-section {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+
+    .url-input {
+      flex: 1;
+      padding: 8px 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #f8fafc;
+      font-size: 12px;
+      font-family: inherit;
+      transition: all 0.2s;
+      min-width: 0;
+    }
+
+    .url-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: rgba(15, 23, 42, 1);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    .url-input::placeholder { color: #475569; }
+
+    .scan-btn {
+      padding: 8px 14px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    }
+
+    .scan-btn:hover { 
+      background: linear-gradient(135deg, #1d4ed8, #2563eb); 
+      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    }
+    .scan-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── SCAN RESULT ─────────────────────────────────────── */
+    #manual-scan-result {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      display: none;
+      backdrop-filter: blur(5px);
+    }
+
+    .result-safe-card {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .result-phishing-card {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .result-error-card {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .result-verdict {
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .result-verdict-safe { color: #34d399; }
+    .result-verdict-phishing { color: #f87171; }
+    .result-verdict-error { color: #fbbf24; }
+
+    .result-sub {
+      font-size: 10px;
+      color: #cbd5e1;
+      margin-top: 3px;
+    }
+
+    /* ── ALLOWLIST SECTION ───────────────────────────────────── */
+    .allowlist-section {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .allowlist-domain {
+      flex: 1;
+      min-width: 0;
+      font-size: 11px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .allowlist-domain strong {
+      color: #e2e8f0;
+      font-weight: 700;
+    }
+
+    .allow-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .allow-btn-add {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .allow-btn-add:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+
+    .allow-btn-remove {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .allow-btn-remove:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* ── ACTIONS ─────────────────────────────────────────── */
+    .actions-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(30, 41, 59, 0.3);
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 8px 10px;
+      background: rgba(15, 23, 42, 0.6);
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover { 
+      background: rgba(51, 65, 85, 0.8); 
+      border-color: rgba(255,255,255,0.2); 
+      color: #ffffff; 
+    }
+    .action-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .footer {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-brand {
+      font-size: 10px;
+      color: #475569;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-status {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── LOADING SPINNER ─────────────────────────────────── */
+    .spin {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M12 2L4 6v5c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V6l-8-4z"/>
+        <path d="M10.5 14.5l-2.5-2.5 1.06-1.06 1.44 1.44 3.44-3.44L15 10l-4.5 4.5z" fill="rgba(255,255,255,0.9)"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <div class="header-title">ShieldAI <span style="color:#3b82f6;">v2</span></div>
+      <div class="header-subtitle">PHISHING PROTECTION</div>
+    </div>
+    <div id="status-pill" class="status-pill status-pill-offline">
+      <div class="status-dot"></div>
+      <span id="status-text">OFFLINE</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-cell">
+      <span id="total-scans" class="stat-value">0</span>
+      <div class="stat-label">URLs Scanned</div>
+    </div>
+    <div class="stat-cell">
+      <span id="threats-blocked" class="stat-value">0</span>
+      <div class="stat-label">Threats Blocked</div>
+    </div>
+    <div class="stat-cell">
+      <span id="malware-blocked" class="stat-value">0</span>
+      <div class="stat-label">Files Blocked</div>
+    </div>
+  </div>
+
+  <!-- Last Scan -->
+  <div class="last-scan">
+    <div class="section-label">Last Scanned Site</div>
+    <div id="last-scan-content">
+      <div class="scan-row">
+        <div class="scan-badge badge-empty">🛡️</div>
+        <div class="scan-info">
+          <div class="scan-url">No sites scanned yet</div>
+          <div class="scan-meta">Visit any website to scan it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual Scan -->
+  <div class="scan-section">
+    <div class="section-label">Check a Link</div>
+    <div class="input-wrap">
+      <input id="manual-url" type="text" class="url-input" placeholder="Paste any link to check...">
+      <button id="scan-btn" class="scan-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L4 6v5c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V6l-8-4z"/>
+        </svg>
+        Scan
+      </button>
+    </div>
+    <div id="manual-scan-result"></div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="actions-row">
+    <button id="open-dashboard" class="action-btn">📊 Dashboard</button>
+    <button id="refresh-intel" class="action-btn">🔄 Refresh Intel</button>
+  </div>
+
+  <!-- Allow This Site -->
+  <div class="allowlist-section">
+    <div class="allowlist-domain" id="current-site-label">Current site: <strong id="current-site-domain">—</strong></div>
+    <button id="allow-site-btn" class="allow-btn allow-btn-add">✓ Allow site</button>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="footer-brand">🛡️ ShieldAI v2</span>
+    <span class="footer-status" id="backend-status" style="color: #6e7681;">Checking...</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
